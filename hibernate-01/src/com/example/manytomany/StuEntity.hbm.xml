@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.example.manytomany" >
+
+    <!-- dynamic-insert 动态添加（不插入null）   -->
+    <class name="StuEntity" table="stu" >
+        <id name="sid" column="did" type="string" length="32">
+            <generator class="uuid"></generator>
+        </id>
+        <property name="sname" column="dname" type="java.lang.String" length="45" />
+
+        <set name="course" table="sc">
+            <key column="fsid"></key>
+            <many-to-many column="fcid" class="CourseEntity"></many-to-many>
+        </set>
+    </class>
+
+</hibernate-mapping>
+

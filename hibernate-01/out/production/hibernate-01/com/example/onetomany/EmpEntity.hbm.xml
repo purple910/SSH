@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.example.onetomany" >
+
+    <!-- dynamic-insert 动态添加（不插入null）   -->
+    <class name="EmpEntity" table="emp" >
+        <id name="eid" column="eid" type="string" length="32">
+            <generator class="uuid"></generator>
+        </id>
+        <property name="ename" column="ename" type="java.lang.String" length="45"/>
+
+        <many-to-one name="dept" class="DeptEntity" column="fdid"></many-to-one>
+    </class>
+
+</hibernate-mapping>
+

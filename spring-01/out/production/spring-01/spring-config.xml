@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd" >
+
+    <beans >
+        <!--
+        default-lazy-init="true"延迟初始化
+        init-method="init"  初始化，在构造方法之后
+        destroy-method="destroy"    销毁前，在析构之前
+        depends-on="iocDao" 在iocDao之后初始化
+        parent="iocDao" 相当于继承，将父类的所有方法赋予子类(必须在子类中extends7父类)
+        autowire="byName"   根据set方法自动装配
+        autowire="byType"   根据set方法的类型自动装配  (一个接口多个实现，会出错)
+        autowire="constructor"  根据构造方法自动专配  (先名称，在类型)
+        scope="singleton"   单例  (只会创建一次，放入ioc容器中，要用时直接调用)
+        scope="prototype"   原型  (每次使用都会创建一次)(struts2的action)
+        -->
+
+        <!--自动注入        -->
+<!--        <bean class="IocServiceImpl" id="iocService" scope="singleton"></bean>-->
+
+        <!--手动注入        -->
+        <bean class="com.example.spring.ios.service.iml.IocServiceImpl" id="iocService" scope="" >
+<!--            <property name="userName" value="admin"></property>-->
+            <!--依赖注入把dao注入到service，在service中操作到里的方法(setter注入) 在service中   定义dao,set方法        -->
+            <property name="iIocDao" ref="iocDao"></property>
+
+            <!--构造器注入  在service中定义一个dao接口,在构造中赋值          -->
+<!--            <constructor-arg ref="iocDao"></constructor-arg>-->
+<!--            <constructor-arg value="admin"/>-->
+
+<!--            <property name="list" ref="list"/>-->
+<!--            <property name="list">-->
+<!--                <list>-->
+<!--                    <value>1</value>-->
+<!--                    <value>2</value>-->
+<!--                    <value>22</value>-->
+<!--                    <value>223</value>-->
+<!--                    <value>2234</value>-->
+<!--                    <value>22345</value>-->
+<!--                    <value>223456</value>-->
+<!--                    <value>2234567</value>-->
+<!--                </list>-->
+<!--            </property>-->
+
+<!--            <property name="map">-->
+<!--                <map>-->
+<!--                    <entry key="a" value="11"/>-->
+<!--                    <entry key="b" value="22"/>-->
+<!--                    <entry key="c" value="33"/>-->
+<!--                </map>-->
+<!--            </property>-->
+
+        </bean>
+
+<!--        <bean id="list" class="java.util.ArrayList"></bean>-->
+
+        <bean class="com.example.spring.ios.dao.impl.IocDaoImpl" id="iocDao"/>
+
+        <!--static            -->
+<!--        <bean class="IocFactory" id="service" factory-method="getService"/>-->
+<!--        &lt;!&ndash;不是static        &ndash;&gt;-->
+<!--        <bean class="IocFactory" id="iocFactory" />-->
+<!--        <bean id="dao" factory-bean="iocFactory" factory-method="getServiceDao"/>-->
+
+
+
+
+    </beans>
+</beans>
+
+

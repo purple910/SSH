@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.example.entity" >
+
+    <!-- dynamic-insert 动态添加（不插入null）   -->
+    <class name="TestEntity" table="test" >
+        <!--开启二级缓存        -->
+        <cache usage="read-write"></cache>
+
+        <!--乐观锁        -->
+        <!--如果打开Read Commited还是没有解决     创建版本号（没有执行一次加+）   -->
+<!--        <version name="" column="" ></version>-->
+        <!-- 时间戳       -->
+<!--        <timestamp name="" column="timestamp"></timestamp>-->
+
+        <id name="id" column="id" type="int">
+            <!--
+                increment 自增(int)(查最大的加+)
+                identity 自增(int)(主键生成器生成自动增长主键)(SQL server , MySQL)
+                seqhilo 自增(int)(主键生成器生成自动增长主键)(Oracle , DB2)
+                native 自行判断(identity、hilo、sequence)
+            -->
+            <generator class="native">
+                <param name="identity">id</param>
+            </generator>
+        </id>
+        <property name="name" column="name" type="java.lang.String" length="45"/>
+        <property name="age" column="age" type="int"/>
+    </class>
+
+</hibernate-mapping>
+

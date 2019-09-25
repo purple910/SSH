@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.example.onetoone" >
+
+    <!-- dynamic-insert 动态添加（不插入null）   -->
+    <class name="CardEntity" table="card" >
+        <id name="cid" column="cid" type="string" length="32">
+            <generator class="assigned"></generator>
+        </id>
+        <property name="cnum" column="cnum" type="java.lang.String" length="45"/>
+
+        <!--card与person一对一的关系        -->
+        <one-to-one name="person" class="CardEntity"></one-to-one>
+    </class>
+
+</hibernate-mapping>
+

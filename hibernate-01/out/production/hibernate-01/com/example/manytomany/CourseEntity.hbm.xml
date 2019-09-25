@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.example.manytomany" >
+
+    <!-- dynamic-insert 动态添加（不插入null）   -->
+    <class name="CourseEntity" table="course" >
+        <id name="cid" column="did" type="string" length="32">
+            <generator class="uuid"></generator>
+        </id>
+        <property name="cname" column="dname" type="java.lang.String" length="45" />
+
+        <!--inverse="true"不去维护关系（在往course，stu插入数据时不会外sc中插入数据）        -->
+        <set name="stu" cascade="all" lazy="false" table="sc">
+            <!--外键            -->
+            <key column="fcid"></key>
+            <!--  别的外键          -->
+            <many-to-many column="fsid" class="StuEntity"></many-to-many>
+        </set>
+    </class>
+
+</hibernate-mapping>
+

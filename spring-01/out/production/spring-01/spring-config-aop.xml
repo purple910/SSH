@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+    <bean class="com.example.spring.aop.dao.impl.AopDaoImpl" name="aopDao" >
+    </bean>
+    <bean class="com.example.spring.aop.service.impl.AopServiceImpl" name="aopService" >
+        <property name="aopDao" ref="aopDao"/>
+    </bean>
+
+
+
+    <!--注意aspectjrt-1.9.2与aspectjweaver-1.9.2版本的对应-->
+    <bean class="com.example.spring.advice.Logger" id="logger"></bean>
+    <aop:aspectj-autoproxy>
+        <aop:include name="logger"/>
+        <aop:include name="aopService"/>
+    </aop:aspectj-autoproxy>
+
+
+<!--    <bean class="com.example.spring.advice.LoggerAdvice" id="loggerAdvice"></bean>-->
+<!--    &lt;!&ndash;AOP代理    &ndash;&gt;-->
+<!--    <aop:config>-->
+<!--        &lt;!&ndash;切面 代理的人       &ndash;&gt;-->
+<!--        <aop:aspect ref="loggerAdvice">-->
+<!--            &lt;!&ndash;拦截规则            &ndash;&gt;-->
+<!--&lt;!&ndash;            <aop:pointcut id="methodCreateLogger" expression="execution(* com.example.spring.aop.service.impl.AopServiceImpl.create(String,int ))"/>&ndash;&gt;-->
+<!--            <aop:pointcut id="methodCreateLogger" expression="execution(* com.example.spring.*.service.impl.*ServiceImpl.*(..))"/>-->
+
+<!--            &lt;!&ndash;-->
+<!--            after           后置执行-->
+<!--            before          前置执行-->
+<!--            after-returning 成功后执行-->
+<!--            after-throwing  异常后执行-->
+<!--            around          环绕执行(需要放行)(前,后)-->
+<!--            &ndash;&gt;-->
+<!--            <aop:after method="logger" pointcut-ref="methodCreateLogger"/>-->
+<!--        </aop:aspect>-->
+
+<!--        &lt;!&ndash;只执行logger()&ndash;&gt;-->
+<!--&lt;!&ndash;        <aop:pointcut id="methodCreateLogger" expression="execution(* com.example.spring.aop.service.impl.AopServiceImpl.create(String,int ))"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <aop:aspect id="logger" ref="loggerAdvice">&ndash;&gt;-->
+<!--&lt;!&ndash;            <aop:around method="logger" pointcut-ref="methodCreateLogger"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </aop:aspect>&ndash;&gt;-->
+
+<!--    </aop:config>-->
+
+
+</beans>

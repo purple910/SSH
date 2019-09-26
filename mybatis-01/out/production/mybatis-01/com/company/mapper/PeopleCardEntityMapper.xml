@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.mapper.PeopleCardMapper">
+
+    <select id="queryCordById" parameterType="int" resultType="mybatis_people_card">
+        select * from mybatis_people_card where cardid = #{cardid}
+    </select>
+</mapper>

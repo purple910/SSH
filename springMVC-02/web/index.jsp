@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: fate
-  Date: 2019/9/30
-  Time: 7:20
-  To change this template use File | Settings | File Templates.
---%>
+
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -125,5 +119,7 @@
   <a href="/second/ArrayIndexException.form">ArrayIndexException</a>
   <a href="/second/ArrayIndex.form">ArrayIndex</a>
 
+  <hr>
+  <a href="/FormController/testForm.form">testForm</a>
   </body>
 </html>

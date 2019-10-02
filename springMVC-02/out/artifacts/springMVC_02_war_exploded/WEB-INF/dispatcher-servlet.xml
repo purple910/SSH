@@ -91,4 +91,16 @@
     </mvc:interceptors>
 
 
+    <!--    SimpleMappingExceptionResolver:用配置来处理异常-->
+<!--    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+<!--        &lt;!&ndash;  异常信息error 放在request域里面 默认为exception     &ndash;&gt;-->
+<!--        <property name="exceptionAttribute" value="error"/>-->
+<!--        <property name="exceptionMappings" >-->
+<!--            <props>-->
+<!--                &lt;!&ndash;     catch(... error)  跳转到error界面         &ndash;&gt;-->
+<!--                <prop key="java.lang.ArithmeticException">error</prop>-->
+<!--            </props>-->
+<!--        </property>-->
+<!--    </bean>-->
+
 </beans>

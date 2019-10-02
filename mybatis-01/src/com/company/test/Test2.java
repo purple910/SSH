@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @program: mybatis-02 com.company.test.Test
+ * @program: mybatis-02 com.company.test.Test2
  * @description: 驱动
  * @author: fate
  * @create: 2019-09-26 14:09
  **/
-public class Test {
+public class Test2 {
     public static void main(String[] args) throws InvalidConfigurationException, InterruptedException, SQLException, IOException, XMLParserException {
 
 

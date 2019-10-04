@@ -1,0 +1,51 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+ul {
+	list-style: none;
+
+}
+.error{
+	display: none;
+	color: #74bfdd;
+}
+.box{
+	width: 175px;
+}
+.in{
+	position: relative;
+	margin-top: 18px;
+	height: 34px;
+}
+input{
+	height: 30px;
+}
+.label{
+	position: absolute;
+	top: -10px;
+	font-size: 15px;
+	white-space: nowrap;/* 规定段落中的文本不进行换行 */
+	background: #fff;
+	text-align: left;
+	left: 15px;
+	padding: 0 5px;
+	color: #999;
+	pointer-events: none;
+}
+button{
+	background-image: linear-gradient(90deg, #e0b722, #ff4931);
+	padding: 10px 30px;
+	border: 3px solid #fff;
+	border-radius: 50px;
+	color: #FFF;
+	/* background-clip: padding-box; */
+	/* position: relative; */
+	/* display: inline-block; */
+	/* background: transparent; */
+	/* box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28); */
+	/* transition: all .25s; */
+}
+button:focus{
+	outline: none;
+}

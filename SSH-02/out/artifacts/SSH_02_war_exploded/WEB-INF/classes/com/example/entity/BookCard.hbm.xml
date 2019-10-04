@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.example.entity.BookCard" table="ssh_BookCard">
+        <!-- 卡号 -->
+        <id name="cid" column="cid" type="int">
+            <generator class="native">
+                <param name="identity">cid</param>
+            </generator>
+        </id>
+        <!-- 姓名 -->
+        <property name="name" column="name" type="java.lang.String" length="32" not-null="false"></property>
+        <!-- 性别 -->
+        <property name="sex" column="sex" type="java.lang.String" length="2" not-null="false"></property>
+        <!-- 办卡日期 -->
+        <property name="cardDate" column="cardDate" type="java.util.Date" length="32" not-null="false"></property>
+
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 类似于财务部门一样，类就是钱，所有需要类的实例都由spring去管理 -->
+    <bean id="myIndexAction" class="com.example.action.IndexAction" scope="prototype">
+        <!-- setIs(myIndexService) -->
+        <property name="is" ref="myIndexService"/>
+    </bean>
+
+    <!-- myIndexService = new ssh_01.service.IndexServiceImpl() -->
+    <bean id="myIndexService" class="com.example.service.impl.BookCardServiceImpl" scope="prototype">
+        <property name="id" ref="myIndexDao"/>
+    </bean>
+
+    <bean id="myIndexDao" class="com.example.dao.impl.BookCardDaoImpl" scope="prototype">
+        <!-- 把sessionFactory 注入给IndexDao -->
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <!-- 添加sessionFactory bane ，注意，该类是Spring提供的 -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" scope="prototype">
+        <!-- 注入Hibernate 配置文件路径,前面要加上  classpath:-->
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+    </bean>
+
+</beans>

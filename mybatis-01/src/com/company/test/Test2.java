@@ -37,4 +37,15 @@ public class Test2 {
         MyBatisGenerator generator = new MyBatisGenerator(configuration,shellCallback,warning);
         generator.generate(null);
     }
+
+	public static void main(String[] args){
+		SqlSession session = getSession();
+		StudentMapper mapper = session.getMapper(StudentMapper.class);
+		//QBC 通过对象查询
+		StudentExample example = new StudentExample();
+		Criteria  criteria = example.createCriteria();
+		criteria.and..;
+		Student stu = mapper.selectByExample(example);
+		.....
+	}
 }

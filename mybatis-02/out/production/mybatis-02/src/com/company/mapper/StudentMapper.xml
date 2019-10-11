@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.mapper.StudentMapper">
+
+    <!-- databaseId指定数据库 -->
+    <select id="queryStudentById" resultType="Student" parameterType="int" databaseId="mysql">
+        select id,name,age from mybatis_student where id=#{id}
+    </select>
+    <select id="queryStudentById" resultType="Student" parameterType="int" databaseId="sqlserver">
+        select id,name,age from mybatis_student where id=#{id}
+    </select>
+
+
+    <!-- 自增回响 -->
+<!--    <insert id="addStudentWithEcho" parameterType="Student" databaseId="mysql" useGeneratedKeys="true" keyProperty="id">-->
+<!--        insert into mybatis_student(name, age) values (#{name},#{age})-->
+<!--    </insert>-->
+    <insert id="addStudentWithEcho" parameterType="Student" databaseId="mysql">
+        <selectKey resultType="integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        insert into mybatis_student(name,age) values (#{name},#{age})
+    </insert>
+<!--    <insert id="addStudentWithEcho" parameterType="Student" databaseId="sqlserver">-->
+<!--        <selectKey keyProperty="id" resultType="integer" order="AFTER" >-->
+<!--            SELECT IDENT_CURRENT('mybatis_student')-->
+<!--        </selectKey>-->
+<!--        insert into mybatis_student(name,age) values (#{name},#{age})-->
+<!--    </insert>-->
+    <insert id="addStudentWithEcho" parameterType="Student" databaseId="sqlserver" useGeneratedKeys="true" keyProperty="id">
+        insert into mybatis_student(name,age) values (#{name},#{age})
+    </insert>
+
+
+    <!-- 出入多个参数则不需要parameterType -->
+    <insert id="addStudentWithParametes" databaseId="mysql" >
+        insert into mybatis_student(id,name,age) values (#{param1},#{param2},#{param3})
+        <!--insert into mybatis_student(id,name,age) values (#{arg0},#{arg1},#{arg2})-->
+    </insert>
+    <insert id="addStudentWithParametes2" databaseId="mysql" >
+        insert into mybatis_student(id,name,age) values (#{a},#{b},#{age})
+    </insert>
+    <insert id="addStudentWithParametes3" databaseId="mysql" >
+        insert into mybatis_student(id,name,age) values (#{a},#{stu.name,jdbcType=NULL},#{stu.age})
+    </insert>
+
+
+    <!--null字段的转换-->
+    <insert id="addStudentWithNull" databaseId="mysql" >
+        insert into mybatis_student(id,name,age) values (#{id},#{name,jdbcType=NULL},#{age})
+    </insert>
+
+
+    <!--hashmap-->
+    <select id="queryStudentWithMap" resultType="hashmap" parameterType="int" databaseId="mysql">
+        select id,name,age from mybatis_student where id=#{id}
+    </select>
+    <select id="queryStudentWithMap1" resultType="hashmap"  databaseId="mysql">
+        select id,name,age from mybatis_student
+    </select>
+
+
+    <resultMap id="xxx" type="Student">
+        <id property="id" column="id"/>
+        <result property="age" column="age"/>
+<!--        <result property="name" column="name"/>-->
+        <result property="gname" column="gname"/>
+        <!--鉴别器：对查询的结果结果进行分支处理-->
+        <discriminator javaType="string" column="gname">
+            <case value="a" resultType="Student">
+                <result column="name" property="name"/>
+            </case>
+            <case value="b" resultType="Student">
+                <result property="name" column="nickname"/>
+            </case>
+        </discriminator>
+    </resultMap>
+    <select id="queryStudentsWithCase" resultMap="xxx" databaseId="mysql">
+        select id,name,age,nickname,gname from mybatis_student
+    </select>
+
+
+
+    <select id="queryStudentsWithONGL" resultType="Student" databaseId="mysql" parameterType="Student">
+<!--        select id,name,age,gname from mybatis_student where 1=1-->
+<!--        <if test="name!=null and name!=''">-->
+<!--            and name like '%${name}%'-->
+<!--        </if>-->
+<!--        <if test="gname!=null and gname!=''">-->
+<!--            and gname like '%${gname}%'-->
+<!--        </if>-->
+<!--        <if test="age!=null and age!=''">-->
+<!--            and age=#{age}-->
+<!--        </if>-->
+
+<!--        select id,name,age,gname from mybatis_student-->
+<!--        <where>-->
+<!--            <if test="name!=null and name!=''">-->
+<!--                and name like '%${name}%'-->
+<!--            </if>-->
+<!--            <if test="gname!=null and gname!=''">-->
+<!--                and gname like '%${gname}%'-->
+<!--            </if>-->
+<!--            <if test="age!=null and age!=''">-->
+<!--                and age=#{age}-->
+<!--            </if>-->
+<!--        </where>-->
+
+<!--        select id,name,age,gname from mybatis_student-->
+<!--        <trim prefix="where" prefixOverrides="and" >-->
+<!--            <if test="name!=null and name!=''">-->
+<!--                and name like '%${name}%'-->
+<!--            </if>-->
+<!--            <if test="gname!=null and gname!=''">-->
+<!--                and gname like '%${gname}%'-->
+<!--            </if>-->
+<!--            <if test="age!=null and age!=''">-->
+<!--                and age=#{age} -->
+<!--            </if>-->
+<!--        </trim>-->
+
+        select id,name,age,gname from mybatis_student
+        <trim prefix="where" suffixOverrides="and" >
+            <if test="name!=null and name!=''">
+                 name like '%${name}%' and
+            </if>
+            <if test="gname!=null and gname!=''">
+                 gname like '%${gname}%' and
+            </if>
+            <if test="age!=null and age!=''">
+                 age=#{age} and
+            </if>
+        </trim>
+    </select>
+
+
+    <!-- _parameter为输入参数 _databaseId为数据库名字 -->
+    <select id="queryStudentWith" resultType="Student" parameterType="Student">
+        <if test="_databaseId == 'mysql'">
+            select id,name,age,gname from mybatis_student
+            <trim prefix="where" suffixOverrides="and" >
+                <if test="_parameter.age!=null and _parameter.age!=''">
+                    age=#{_parameter.age} and
+                </if>
+            </trim>
+        </if>
+        <if test="_databaseId == 'sqlserver'">
+            select id,name,age,gname from mybatis_student
+            <trim prefix="where" suffixOverrides="and" >
+                <if test="_parameter.age!=null and _parameter.age!=''">
+                    age!=#{_parameter.age} and
+                </if>
+            </trim>
+        </if>
+    </select>
+
+
+    <select id="queryStudentWithSee" resultType="Student" parameterType="Student" databaseId="mysql">
+        select id,name,age,gname from mybatis_student
+        <trim prefix="where" suffixOverrides="and" >
+            <if test="name!=null and name!=''">
+                name like #{name} and
+            </if>
+        </trim>
+    </select>
+    <select id="queryStudentWithSee1" resultType="Student" parameterType="Student" databaseId="mysql">
+        select id,name,age,gname from mybatis_student
+        <trim prefix="where" suffixOverrides="and" >
+            <if test="name!=null and name!=''">
+                name like '%${name}%' and
+            </if>
+        </trim>
+    </select>
+    <select id="queryStudentWithSee2" resultType="Student" parameterType="Student" databaseId="mysql">
+        select id,name,age,gname from mybatis_student
+        <trim prefix="where" suffixOverrides="and" >
+            <bind name="xx" value="'%'+name+'%'"/>
+            <if test="name!=null and name!=''">
+                name like #{xx} and
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryStudentsWithInterceptor" resultType="Student" parameterType="int"  databaseId="mysql">
+        select id,name,age,gname from mybatis_student where id=#{id}
+    </select>
+
+    <insert id="addStudentWithMany" parameterType="Student" databaseId="mysql">
+        insert into mybatis_student(id,name,age,gname) values
+        <foreach collection="list" close=";" separator="," item="student">
+            (#{student.id},#{student.name},#{student.age},#{student.gname})
+        </foreach>
+    </insert>
+
+    <select id="queryStudentWithPage" resultType="Student"  databaseId="mysql">
+        select id,name,age,gname from mybatis_student
+    </select>
+
+
+</mapper>
+

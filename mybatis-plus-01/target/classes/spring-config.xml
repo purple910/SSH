@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--数据源-->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="dataSource">
+        <property name="driverClass" value="${mysql.driver}"/>
+        <property name="jdbcUrl" value="${mysql.url}"/>
+        <property name="user" value="${mysql.username}"/>
+        <property name="password" value="${mysql.password}"/>
+    </bean>
+
+    <!--事务管理器-->
+    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="dataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <tx:annotation-driven transaction-manager="dataSourceTransactionManager"/>
+
+    <!--SqlSessionFactoryBean:Mybatis-->
+<!--    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">-->
+    <!--MybatisSqlSessionFactoryBean:MybatisPlus-->
+    <bean class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean" id="sqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis.xml"/>
+        <property name="typeAliasesPackage" value="com.example.entity"/>
+        <!--更改注入器-->
+        <property name="globalConfig" ref="globalConfig"/>
+        <!--拦截器-->
+        <property name="plugins" >
+            <list>
+                <!--分页 性能优化-->
+                <bean class="com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor">
+                    <property name="sqlParserList" >
+                        <list>
+                            <bean class="com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser"/>
+                        </list>
+                    </property>
+                </bean>
+                <!--乐观锁-->
+                <bean class="com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--注入器  全局配置 -->
+    <bean class="com.baomidou.mybatisplus.core.config.GlobalConfig" id="globalConfig">
+        <property name="dbConfig">
+            <bean class="com.baomidou.mybatisplus.core.config.GlobalConfig$DbConfig">
+                <!--设置逻辑删除字段-->
+                <property name="logicDeleteValue" value="1"/>
+                <property name="logicNotDeleteValue" value="0"/>
+                <!--添加表的前缀-->
+                <property name="tablePrefix" value="mybatis_plus_"/>
+            </bean>
+        </property>
+        <property name="sqlInjector">
+            <bean class="com.example.injector.MyInjector"/>
+        </property>
+        <property name="metaObjectHandler">
+            <!--默认值 fill = FieldFill.INSERT_UPDATE -->
+            <bean class="com.example.meta.MyMetaObjectHandler"/>
+        </property>
+    </bean>
+
+
+
+
+    <!--Mybatis接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" id="mapperScannerConfigurer">
+        <property name="basePackage" value="com.example.mapper"/>
+    </bean>
+
+
+
+</beans>

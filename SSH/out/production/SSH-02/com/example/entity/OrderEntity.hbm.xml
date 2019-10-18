@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.example.entity" >
+
+    <!-- dynamic-insert 动态添加（不插入null）   -->
+    <class name="OrderEntity" table="hibernate_order" >
+
+        <id name="id" column="id" type="int" >
+            <!--
+                increment 自增(int)(查最大的加+)
+                identity 自增(int)(主键生成器生成自动增长主键)(SQL server , MySQL)
+                seqhilo 自增(int)(主键生成器生成自动增长主键)(Oracle , DB2)
+                native 自行判断(identity、hilo、sequence)
+            -->
+            <generator class="native">
+                <param name="identity">id</param>
+            </generator>
+        </id>
+        <property name="name" column="name" type="java.lang.String" length="32" not-null="false"/>
+        <property name="price" column="price" type="double" not-null="false"/>
+        <property name="count" column="count" type="int" not-null="false"/>
+
+        <many-to-one name="custom" class="CustomEntity" column="oid" not-null="false"></many-to-one>
+    </class>
+
+</hibernate-mapping>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+        "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+
+    <package name="/" extends="struts-default">
+        <action name="addCustom" class="com.example.action.CustomAction" method="addCustom">
+            <result name="success" type="redirectAction">queryCustomAll</result>
+            <result name="input">index.jsp</result>
+        </action>
+        <action name="deleteCustom" class="com.example.action.CustomAction" method="deleteCustom">
+            <result type="chain" name="success">queryCustomAll</result>
+        </action>
+        <action name="addOrder" class="com.example.action.CustomAction" method="addOrder">
+            <result name="success" type="redirectAction">queryOrderAll</result>
+        </action>
+        <action name="deleteOrder" class="com.example.action.CustomAction" method="deleteOrder">
+            <result type="chain" name="success">queryOrderAll</result>
+        </action>
+
+        <action name="queryCustomAll" class="com.example.action.CustomAction" method="queryCustomAll">
+            <result name="success" >custom_info.jsp</result>
+            <result name="login">order.jsp</result>
+        </action>
+        <action name="queryOrderAll" class="com.example.action.CustomAction" method="queryOrderAll">
+            <result name="success">order_info.jsp</result>
+        </action>
+
+
+
+        <action name="queryOrderInfo" class="com.example.action.CustomAction" method="queryOrderInfo">
+            <result name="success">index.jsp</result>
+        </action>
+        <action name="queryCustomInfo" class="com.example.action.CustomAction" method="queryCustomInfo">
+            <result name="success">index.jsp</result>
+        </action>
+
+
+
+        <action name="queryCustomByOrder" class="com.example.action.CustomAction" method="queryCustomByOrder">
+            <result name="success" >custom_order.jsp</result>
+        </action>
+        <action name="queryOrderByCustomer" class="com.example.action.CustomAction" method="queryOrderByCustomer">
+            <result name="success">custom_order.jsp</result>
+        </action>
+
+
+
+    </package>
+
+</struts>

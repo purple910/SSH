@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css" th:href="@{webjars/bootstrap/3.3.7/css/bootstrap.css}">
+    <script src="js/bootstrap.js" th:src="@{webjars/bootstrap/3.3.7/js/bootstrap.js}"></script>
+    <script src="js/jquery-3.1.1.min.js" th:src="@{webjars/jquery/3.4.1/jquery.js}"></script>
+    <link rel="stylesheet" href="css/student.css" th:href="@{css/student.css}">
+
+</head>
+<body>
+<div  class="container">
+    <div>
+        <nav class="navbar navbar-default navbar-fixed-top navbar-blue" role="navigation">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">毕业设计选课系统</a>
+            </div>
+        </nav>
+    </div>
+    <!-- 内容区域 -->
+    <div class="row  body">
+        <!-- 菜单 -->
+        <div class="col-md-2   panel-body  ">
+            <!-- 学生系统-->
+            <div class="  panel panel-primary">
+                <div class="panel-title" ><button  class="btn  btn-primary  btn-block"><a  href="admini_rule.html">制定规则</a></button></div>
+            </div>
+            <div class="  panel panel-primary">
+                <div class="panel-title" > <button  class="btn  btn-primary  btn-block"><a href="admini_plan.html">选课进度查询</a></button></div>
+            </div>
+            <div class="  panel panel-primary">
+                <div class="panel-title" ><button  class="btn  btn-primary  btn-block"  ><a  href="admini_class.html">分类统计</a></button></div>
+            </div>
+            <div class="  panel panel-primary">
+                <div class="panel-title" ><button  class="btn  btn-primary  btn-block" ><a href="#">选课数据导出</a></button></div>
+            </div><!--要将数据库中的选课数据导出-->
+        </div>
+        <div class="col-md-10" th:fragment="rule">
+            <ol class="breadcrumb">
+                <li><a href="#"><span class="glyphicon glyphicon-home"></span> 首页</a></li>
+                <li class="active">制定规则</li>
+            </ol>
+            <!-- 面版 -->
+            <div class="panel panel-default">
+
+                <div class="panel-body">
+                    <form action="">
+                        <div class="form-group">
+                            <label for="time1">选题开始时间</label>
+                            <input type="text" name="time1" class="form-control" id="time1">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="time2">选题结束时间</label>
+                            <input type="password" name="time2" class="form-control" id="time2">
+                        </div>
+                        <div class="form-group">
+                            <label for="max">老师指导学生上限</label>
+                            <input type="password" name="max" class="form-control" id="max">
+                        </div>
+                        <div class="form-group">
+                            <label for="ratio">优秀学生占比</label>
+                            <input type="password" name="ratio" class="form-control" id="ratio">
+                        </div>
+                        <div class="form-group   text-center">
+                            <input type="submit" value="提交" class="btn btn-success">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="reset" value="重置" class="btn btn-danger">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <nav style="text-align:center;">
+                        <ul class="pagination">
+                            <li><a href="#">&laquo;</a></li>
+                            <li><a href="admini_rule.html">1</a></li>
+                            <li><a href="admini_plan.html">2</a></li>
+                            <li><a href="admini_class.html">3</a></li>
+                            <li><a href="#">&raquo;</a></li>
+                        </ul>
+                    </nav>
+                </div>
+        </div>
+    </div>
+    </div>
+
+</div>
+</body>
+</html>

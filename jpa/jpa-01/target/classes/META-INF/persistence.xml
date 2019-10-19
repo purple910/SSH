@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <!--持久化单元名称: JTA:分布式管理(多个数据库), RESOURCE_LOCAL:本地事务管理(单一数据库) -->
+    <persistence-unit name="myJpa" transaction-type="RESOURCE_LOCAL">
+        <!--jpa实现方式-->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!--数据库信息-->
+        <properties>
+            <!-- 标准配置方法，适用性高 -->
+
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/homework?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="admin"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+
+
+            <!-- hibernate 的配置方法-->
+<!--            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/homework" />-->
+<!--            <property name="hibernate.connection.username" value="root" />-->
+<!--            <property name="hibernate.connection.password" value="admin" />-->
+<!--            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />-->
+<!--            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />-->
+
+
+            <!--自动输出schema创建DDL语句 value的值可以是 create-drop / create / update 值得注意的是create-drop他会在SESSION关闭后删除所有表开启式再创建。 -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.show_sql" value="true" />
+
+            <!--删除/重建SQL架构-->
+<!--            <property name = "javax.persistence.schema-generation.database.action" value = "drop-and-create"/>-->
+            <!--格式化SQL-->
+            <property name = "hibernate.format_sql" value = "true"/>
+            <property name = "hibernate.use_sql_comments" value = "true"/>
+
+        </properties>
+    </persistence-unit>
+
+
+</persistence>

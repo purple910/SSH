@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.example.entity" >
+
+    <!-- dynamic-insert 动态添加（不插入null）   -->
+    <class name="CustomEntity" table="hibernate_custom" >
+
+        <id name="id" column="id" type="int" >
+
+            <generator class="native">
+                <param name="identity">id</param>
+            </generator>
+        </id>
+        <property name="ninkname" column="ninkname" type="string" length="32" not-null="false"/>
+        <property name="name" column="name" type="java.lang.String" length="32" not-null="false"/>
+        <property name="passwork" column="passwork" type="string" length="32" not-null="false"/>
+        <property name="phone" column="phone" type="string" length="11" not-null="false"/>
+        <property name="address" column="address" type="string" length="32" not-null="false"/>
+
+        <set name="orders" cascade="all" >
+            <key column="oid"></key>
+            <one-to-many class="OrderEntity" ></one-to-many>
+        </set>
+
+    </class>
+
+</hibernate-mapping>
+

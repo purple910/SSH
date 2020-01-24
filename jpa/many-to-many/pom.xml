@@ -97,7 +97,7 @@
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.0.17.Final</version>
+            <version>6.1.0.Final</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
         <dependency>
@@ -137,12 +137,12 @@
             <artifactId>c3p0</artifactId>
             <version>0.9.1.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+        <!-- https://archive.apache.org/dist/logging/log4j/ maven库里的log4j只有到1.2.17 有安全隐患 需要自己配置maven库
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
-        </dependency>
+        </dependency> -->
         <!-- https://mvnrepository.com/artifact/javax.el/javax.el-api -->
         <dependency>
             <groupId>javax.el</groupId>
